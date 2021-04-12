@@ -4,6 +4,7 @@
 * I have used Singleton classes in the scenarios where only one-time object needs to be created and used many times in the application.   
 * Marshmallow is used as a serializer as well as for validation of the data. 
 * There are 4 endpoints for POST, PUT, DELETE and GET API. According to the file type given in the path, dynamically operations are executed.
+* Whole application is dockerized and docker-compose is used to manage the services.
 ## How to run the application
 ### Installing dependencies
 #### Docker
