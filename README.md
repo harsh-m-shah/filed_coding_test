@@ -35,6 +35,7 @@ sudo docker-compose build
 ```
 sudo docker-compose up -d
 ```
+
 After this following services will be in running state:
 
 ``backend`` -> Flask WSGI server running via gunicorn which is exposing APIs 
@@ -42,6 +43,9 @@ After this following services will be in running state:
 ``db`` -> mysql db container
 
 ``nginx`` -> Reverse proxy services which will forward the incoming requests to the backend service
+
+**Note**: ``backend`` service will wait till mysql container server is ready for listening requests. Once mysql is started, gunicorn server will be started. 
+You can check the logs of ``backend`` service using ``docker logs backend``.
 
 ### Migrating the database:
 Once all the services are up use the following command for the initial migration of the database
