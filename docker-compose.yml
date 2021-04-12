@@ -1,0 +1,42 @@
+version: '3.3'
+services:
+  db:
+    container_name: db
+    image: mysql:8.0
+    command: mysqld --default-authentication-plugin=mysql_native_password
+    env_file:
+      - db_config/database.env
+    expose:
+      - 3306
+    volumes:
+      - ./db_config/init:/docker-entrypoint-initdb.d
+      - audio-db-volume:/var/lib/mysql
+    restart: always
+
+  backend:
+    container_name: backend
+    command: gunicorn --bind 0.0.0.0:5000 src.app:app
+    build:
+      context: backend
+      dockerfile: Dockerfile
+    env_file:
+      - backend/conf.env
+    depends_on:
+      - db
+    expose:
+      - 5000
+    restart: always
+
+  nginx:
+    build:
+      context: nginx/
+      dockerfile: Dockerfile
+    ports:
+      - 80:80
+    depends_on:
+      - backend
+    restart: always
+
+volumes:
+  audio-db-volume:
+    external: false
