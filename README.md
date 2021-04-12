@@ -200,7 +200,7 @@ Status code: 200
 ```
 
 ## Running Tests:
-Change ``APP_ENV=prod`` in the ``backend/conf.env`` file.
+Change ``APP_ENV=test`` in the ``backend/conf.env`` file.
 
 After changing up the service using following command:
 ``sudo docker-compose up -d``
