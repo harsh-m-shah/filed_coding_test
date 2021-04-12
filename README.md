@@ -36,9 +36,12 @@ sudo docker-compose build
 sudo docker-compose up -d
 ```
 After this following services will be in running state:
-backend -> Flask WSGI server running via gunicorn which is exposing APIs 
-db -> mysql db container
-nginx -> Reverse proxy services which will forward the incoming requests to the backend service
+
+``backend`` -> Flask WSGI server running via gunicorn which is exposing APIs 
+
+``db`` -> mysql db container
+
+``nginx`` -> Reverse proxy services which will forward the incoming requests to the backend service
 
 ### Migrating the database:
 Once all the services are up use the following command for the initial migration of the database
@@ -49,13 +52,19 @@ sudo docker exec backend python3 manage.py db upgrade
 ## Calling APIs:
 ### POST API:
 **Endpoint**: ``http://localhost/api/v1/audioFile/<file_type>``
+
 **Body**:
 audio file id is automatically created so you only have to pass the fields according to file type.
+
 **Response**:
+```
 200 -> Resouce added and response will contain JSON data of added resource.
 400 -> In case of invalid data
 500 -> Server Error
+```
+
 **Example**:
+
 Sample Request:
 ```
 curl --location --request POST 'http://localhost/api/v1/audioFile/song' \
@@ -75,14 +84,20 @@ Response body:
 
 ### PUT API:
 **Endpoint**: ``http://localhost/api/v1/audioFile/<file_type>/<file_id>``
+
 **Body**:
 JSON data containg fields for update
+
 **Response**:
+```
 200 -> Resouce updated successfully.
 400 -> In case of invalid data
 404 -> Resource not found
 500 -> Server Error
+```
+
 **Example**:
+
 Sample Request:
 ```
 curl --location --request PUT 'http://localhost/api/v1/audioFile/song/3' \
@@ -94,18 +109,28 @@ Status code: 200
 ```
 
 ### GET API:
+
 **Endpoint**: 
+
 ``http://localhost/api/v1/audioFile/<file_type>``
+
+
 ``http://localhost/api/v1/audioFile/<file_type>/<file_id>``
+
 **Response**:
+```
 200 -> Resouces fethed successfully and response body will contain list of resources
 404 -> Resource not found
 500 -> Server Error
+```
+
 **Example**:
+
 Sample Request:
 ```
 curl --location --request GET 'http://localhost/api/v1/audioFile/song/3'
 ```
+
 Sample Response:
 ```
 Status code: 200
@@ -153,16 +178,23 @@ Response body:
 
 ### DELETE API:
 **Endpoint**: ``http://localhost/api/v1/audioFile/<file_type>/<file_id>``
+
 **Response**:
+```
 200 -> Resouces deleted successfully.
 404 -> Resource not found
 500 -> Server Error
+```
+
 **Example**:
+
 Sample Request:
 ```
 curl --location --request DELETE 'http://localhost/api/v1/audioFile/song/3
 Sample Response:
 ```
+
+Sample Response:
 ```
 Status code: 200
 ```
